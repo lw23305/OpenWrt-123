@@ -39,10 +39,22 @@ function git_sparse_clone() {
 
 # 科学上网插件
 # git clone --depth=1 -b main https://github.com/fw876/helloworld package/luci-app-ssr-plus
-git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
-git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
+# git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
+# git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
 # git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
 # git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
+
+# 克隆openwrt-passwall仓库
+git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages.git
+cp -rf openwrt-passwall-packages/chinadns-ng package/chinadns-ng
+cp -rf openwrt-passwall-packages/tcping package/tcping
+cp -rf openwrt-passwall-packages/trojan-go package/trojan-go
+cp -rf openwrt-passwall-packages/trojan-plus package/trojan-plus
+cp -rf openwrt-passwall-packages/ssocks package/ssocks
+cp -rf openwrt-passwall-packages/hysteria package/hysteria
+cp -rf openwrt-passwall-packages/dns2tcp package/dns2tcp
+cp -rf openwrt-passwall-packages/sing-box package/sing-box
+#rm -rf openwrt-passwall-packages
 
 # Themes
 # git clone --depth=1 -b 18.06 https://github.com/kiddin9/luci-theme-edge package/luci-theme-edge
