@@ -43,9 +43,10 @@ function git_sparse_clone() {
 # git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
 # git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
 # git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
-echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
-echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
-
+# echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
+# echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
+git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall package/deng/passwall
+git clone --depth 1 -b luci https://github.com/xiaorouji/openwrt-passwall package/deng/luci-app-passwall
 # 克隆openwrt-passwall仓库
 # git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages.git
 # cp -rf openwrt-passwall-packages/chinadns-ng package/chinadns-ng
