@@ -43,17 +43,19 @@ function git_sparse_clone() {
 # git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
 # git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall2 package/luci-app-passwall2
 # git_sparse_clone master https://github.com/vernesong/OpenClash luci-app-openclash
+echo "src-git passwall_packages https://github.com/xiaorouji/openwrt-passwall-packages.git;main" >> "feeds.conf.default"
+echo "src-git passwall https://github.com/xiaorouji/openwrt-passwall.git;main" >> "feeds.conf.default"
 
 # 克隆openwrt-passwall仓库
-git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages.git
-cp -rf openwrt-passwall-packages/chinadns-ng package/chinadns-ng
-cp -rf openwrt-passwall-packages/tcping package/tcping
-cp -rf openwrt-passwall-packages/trojan-go package/trojan-go
-cp -rf openwrt-passwall-packages/trojan-plus package/trojan-plus
-cp -rf openwrt-passwall-packages/ssocks package/ssocks
-cp -rf openwrt-passwall-packages/hysteria package/hysteria
-cp -rf openwrt-passwall-packages/dns2tcp package/dns2tcp
-cp -rf openwrt-passwall-packages/sing-box package/sing-box
+# git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages.git
+# cp -rf openwrt-passwall-packages/chinadns-ng package/chinadns-ng
+# cp -rf openwrt-passwall-packages/tcping package/tcping
+# cp -rf openwrt-passwall-packages/trojan-go package/trojan-go
+# cp -rf openwrt-passwall-packages/trojan-plus package/trojan-plus
+# cp -rf openwrt-passwall-packages/ssocks package/ssocks
+# cp -rf openwrt-passwall-packages/hysteria package/hysteria
+# cp -rf openwrt-passwall-packages/dns2tcp package/dns2tcp
+# cp -rf openwrt-passwall-packages/sing-box package/sing-box
 #rm -rf openwrt-passwall-packages
 
 # Themes
