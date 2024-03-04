@@ -39,8 +39,55 @@ function git_sparse_clone() {
 
 # 科学上网插件
 # git clone --depth=1 -b main https://github.com/fw876/helloworld package/luci-app-ssr-plus
-git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
-git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
+# git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall-packages package/openwrt-passwall
+# git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/luci-app-passwall
+
+# 拉取 passwall-packages
+git clone https://github.com/xiaorouji/openwrt-passwall-packages.git package/passwall/packages
+#cd package/passwall/packages
+#git checkout fed70a5113b60c96d9c8182e40770f37c83d67ba
+#cd -
+
+# 拉取 luci-app-passwall
+git clone https://github.com/xiaorouji/openwrt-passwall.git package/passwall/luci
+#cd package/passwall/luci
+#git checkout ebd3355bdf2fcaa9e0c43ec0704a8d9d8cf9f658
+#cd -
+# 删除 passwall-packages 中 gn
+rm -rf package/passwall/packages/gn
+# 删除 passwall-packages 中 naiveproxy
+rm -rf package/passwall/packages/naiveproxy
+# 删除自带 pgyvpn
+#rm -rf feeds/packages/net/pgyvpn
+# 删除自带 tailscale
+rm -rf feeds/packages/net/tailscale
+# 筛选程序
+function merge_package(){
+    # 参数1是分支名,参数2是库地址。所有文件下载到指定路径。
+    # 同一个仓库下载多个文件夹直接在后面跟文件名或路径，空格分开。
+    trap 'rm -rf "$tmpdir"' EXIT
+    branch="$1" curl="$2" target_dir="$3" && shift 3
+    rootdir="$PWD"
+    localdir="$target_dir"
+    [ -d "$localdir" ] || mkdir -p "$localdir"
+    tmpdir="$(mktemp -d)" || exit 1
+    git clone -b "$branch" --depth 1 --filter=blob:none --sparse "$curl" "$tmpdir"
+    cd "$tmpdir"
+    git sparse-checkout init --cone
+    git sparse-checkout set "$@"
+    for folder in "$@"; do
+        mv -f "$folder" "$rootdir/$localdir"
+    done
+    cd "$rootdir"
+}
+# 提取 gn
+merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git package/passwall/packages devel/gn
+# 提取 naiveproxy
+merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git package/passwall/packages net/naiveproxy
+# 提取 pgyvpn
+#merge_package packages-pgyvpn https://github.com/hue715/lean-packages.git feeds/packages/net net/pgyvpn
+# 提取 tailscale
+merge_package openwrt-23.05 https://github.com/immortalwrt/packages.git feeds/packages/net net/tailscale
 
 # Themes
 # git clone --depth=1 -b 18.06 https://github.com/kiddin9/luci-theme-edge package/luci-theme-edge
