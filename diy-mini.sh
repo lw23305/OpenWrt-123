@@ -16,11 +16,11 @@ sed -i "s/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g" target/l
 
 
 # 移除要替换的包
-rm -rf feeds/packages/net/mosdns
+# rm -rf feeds/packages/net/mosdns
 # rm -rf feeds/packages/net/msd_lite
 # rm -rf feeds/packages/net/smartdns
 rm -rf feeds/luci/themes/luci-theme-argon
-rm -rf feeds/luci/applications/luci-app-mosdns
+# rm -rf feeds/luci/applications/luci-app-mosdns
 # rm -rf feeds/luci/applications/luci-app-netdata
 
 # Git稀疏克隆，只克隆指定目录到本地
