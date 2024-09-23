@@ -73,7 +73,14 @@ git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/l
 rm -rf ./feeds/luci/applications/luci-app-mosdns/
 rm -rf ./feeds/packages/net/mosdns/
 rm -rf ./package/custom_packages/mosdns
-git clone https://github.com/sbwml/luci-app-mosdns -b v5 ./package/custom_packages/mosdns
+# git clone https://github.com/sbwml/luci-app-mosdns -b v5 ./package/custom_packages/mosdns
+find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
+find ./ | grep Makefile | grep mosdns | xargs rm -f
+git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
+git clone https://github.com/sbwml/v2ray-geodata package/geodata
+
+
+
 
 # Alist
 # git clone --depth=1 https://github.com/sbwml/luci-app-alist package/luci-app-alist
