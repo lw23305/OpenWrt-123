@@ -53,14 +53,13 @@ git clone --depth=1 https://github.com/jerrykuku/luci-app-argon-config package/l
 # git_sparse_clone main https://github.com/haiibo/packages luci-theme-opentomcat
 
 # MosDNS
-rm -rf ./feeds/luci/applications/luci-app-mosdns/
-rm -rf ./feeds/packages/net/mosdns/
-rm -rf ./package/custom_packages/mosdns
-# git clone https://github.com/sbwml/luci-app-mosdns -b v5 ./package/custom_packages/mosdns
-find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
-find ./ | grep Makefile | grep mosdns | xargs rm -f
-git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
-git clone https://github.com/sbwml/v2ray-geodata package/geodata
+rm -rf feeds/packages/net/mosdns
+rm -rf feeds/luci/applications/luci-app-mosdns
+git clone --depth=1 -b v5-lua https://github.com/sbwml/luci-app-mosdns package/luci-app-mosdns
+# find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
+# find ./ | grep Makefile | grep mosdns | xargs rm -f
+# git clone https://github.com/sbwml/luci-app-mosdns package/mosdns
+# git clone https://github.com/sbwml/v2ray-geodata package/geodata
 
 # iStore
 # git_sparse_clone main https://github.com/linkease/istore-ui app-store-ui
