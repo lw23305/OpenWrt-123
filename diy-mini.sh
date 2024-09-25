@@ -29,6 +29,7 @@ function git_sparse_clone() {
 
 # 科学上网插件
 git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall package/deng/luci-app-passwall
+git clone --depth 1 https://github.com/xiaorouji/openwrt-passwall-packages.git package/deng/passwall-packages
 
 
 # Themes
@@ -74,7 +75,7 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_URL:=@GHCODELOAD/PKG_SOURCE_URL:=https:\/\/codeload.github.com/g' {}
 
 # 取消主题默认设置
-find package/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
+# find package/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
 
 # 取消对 samba4 的菜单调整
 sed -i '/samba4/s/^/#/' package/lean/default-settings/files/zzz-default-settings
