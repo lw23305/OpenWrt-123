@@ -14,6 +14,9 @@ sed -i 's|/bin/login|/bin/login -f root|g' feeds/packages/utils/ttyd/files/ttyd.
 sed -i "s/KERNEL_PATCHVER:=*.*/KERNEL_PATCHVER:=5.15/g" target/linux/x86/Makefile
 sed -i "s/KERNEL_TESTING_PATCHVER:=*.*/KERNEL_TESTING_PATCHVER:=5.15/g" target/linux/x86/Makefile
 
+#修正连接数（by ベ七秒鱼ベ）
+sed -i '/customized in this file/a net.netfilter.nf_conntrack_max=165535' package/base-files/files/etc/sysctl.conf
+
 # 移除要替换的包
 rm -rf feeds/packages/net/mosdns
 rm -rf feeds/luci/applications/luci-app-mosdns
@@ -40,11 +43,6 @@ git clone --depth=1 https://github.com/xiaorouji/openwrt-passwall package/luci-a
 # golang 1.22.x 或最新版本
 rm -rf feeds/packages/lang/golang
 git clone https://github.com/sbwml/packages_lang_golang -b 23.x feeds/packages/lang/golang
-
-# find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
-# find ./ | grep Makefile | grep mosdns | xargs rm -f
-# git clone https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
-# git clone https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
 
 # Themes
 git clone --depth=1 -b 18.06 https://github.com/jerrykuku/luci-theme-argon package/luci-theme-argon
@@ -84,6 +82,9 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 
 # 取消对 samba4 的菜单调整
 sed -i '/samba4/s/^/#/' package/lean/default-settings/files/zzz-default-settings
+
+#6.添加自动挂载磁盘脚本
+mkdir -p files/etc/hotplug.d/block && wget -O files/etc/hotplug.d/block/30-usbmount https://raw.githubusercontent.com/ficheny/P3TERX_Actions-OpenWrt/main/files/etc/hotplug.d/block/30-usbmount && chmod 755 files/etc/hotplug.d/block/30-usbmount
 
 ./scripts/feeds update -a
 ./scripts/feeds install -a
